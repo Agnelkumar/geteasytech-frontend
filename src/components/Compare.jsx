@@ -72,6 +72,7 @@ const Compare = ({ products }) => {
             borderCollapse: "collapse",
             marginTop: 20,
             textAlign: "center",
+            textWrap: "wrap",
           }}
         >
           <thead>

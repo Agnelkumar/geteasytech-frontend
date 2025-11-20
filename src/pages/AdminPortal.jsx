@@ -77,6 +77,7 @@ const AdminPortal = () => {
     Battery: p.battery || "",
     Fingerprint: p.fingerprint || "",
     ProtectionGlass: p.protectionGlass || "",
+    Variants: p.variants || "",
     Price: p.price || ""
   });
   
@@ -106,7 +107,7 @@ const AdminPortal = () => {
 
               {[
                 'ProductName', 'MainCamera', 'SecondaryCamera', 'FrontCamera', 'Display', 'Additional',
-                'Processor', 'Battery', 'Fingerprint', 'ProtectionGlass', 'Price'
+                'Processor', 'Battery', 'Fingerprint', 'ProtectionGlass', 'Variants', 'Price'
               ].map((f) => (
                 <input
                   key={f}

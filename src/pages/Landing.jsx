@@ -5,7 +5,7 @@ import { modalStyle, modalContentStyle, inputStyle, buttonStyle } from '../style
 const Landing = () => {
   const [showModal, setShowModal] = useState(false);
   const [tab, setTab] = useState('admin');
-  const [form, setForm] = useState({ username: '', email: '', password: '' });
+  const [form, setForm] = useState({ username: '', email: '', password: '', mobileNumber: ''});
   const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
 
@@ -90,6 +90,7 @@ const Landing = () => {
               <div style={{ padding: 20, width: '150%' }}>
                 <input style={inputStyle} placeholder="👤 Username" onChange={(e) => setForm({ ...form, username: e.target.value })} />
                 <input style={inputStyle} placeholder="📧 Email" onChange={(e) => setForm({ ...form, email: e.target.value })} />
+                <input style={inputStyle} placeholder="📱 Mobile Number" onChange={(e) => setForm({ ...form, mobileNumber: e.target.value })} />
                 <input type="password" style={inputStyle} placeholder="🔒 Password" onChange={(e) => setForm({ ...form, password: e.target.value })} />
                 <div style={{marginLeft: '100px'}}><button style={buttonStyle} onClick={handleRegister}>Register</button>
                 <p style={{ marginTop: 10, marginLeft: '28px' }}>
