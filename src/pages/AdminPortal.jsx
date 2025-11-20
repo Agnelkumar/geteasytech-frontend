@@ -26,7 +26,7 @@ const AdminPortal = () => {
 
   // CREATE + UPDATE
   const handleAdd = async () => {
-    const name = form["ProductName"];
+    const name = form["Product Name"];
     const price = form["Price"];
 
     if (!name || !price) {
@@ -106,8 +106,8 @@ const AdminPortal = () => {
               <h2 style={{ marginLeft: '50px' }}>Add Product</h2>
 
               {[
-                'ProductName', 'MainCamera', 'SecondaryCamera', 'FrontCamera', 'Display', 'Additional',
-                'Processor', 'Battery', 'Fingerprint', 'ProtectionGlass', 'Variants', 'Price'
+                'Product Name', 'Main Camera', 'Secondary Camera', 'Front Camera', 'Display', 'Additional',
+                'Processor', 'Battery', 'Fingerprint', 'Protection Glass', 'Variants', 'Price'
               ].map((f) => (
                 <input
                   key={f}

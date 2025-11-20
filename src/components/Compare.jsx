@@ -1,19 +1,41 @@
 import React, { useState, useEffect } from "react";
 
+// --- PRICE HELPERS --- //
+const getHighestPrice = (price) => {
+  if (!price) return 0;
+
+  return price
+    .split(",")
+    .map((p) => parseInt(p.trim()))
+    .filter((n) => !isNaN(n))
+    .sort((a, b) => b - a)[0]; // highest
+};
+
+const getLowestPrice = (price) => {
+  if (!price) return 0;
+
+  return price
+    .split(",")
+    .map((p) => parseInt(p.trim()))
+    .filter((n) => !isNaN(n))
+    .sort((a, b) => a - b)[0]; // lowest
+};
+
 const Compare = ({ products }) => {
   const [a, setA] = useState(null);
   const [b, setB] = useState(null);
   const [features, setFeatures] = useState([]);
 
+  const productA = a;
+
+  // --- MERGE FIELDS FOR TABLE --- //
   useEffect(() => {
     if (a && b) {
       const keysA = Object.keys(a);
       const keysB = Object.keys(b);
 
-      // Merge unique fields
       const allKeys = Array.from(new Set([...keysA, ...keysB]));
 
-      // Remove unwanted fields (Mongo internal fields)
       const cleanKeys = allKeys.filter(
         (k) => !["_id", "__v", "createdAt", "updatedAt"].includes(k)
       );
@@ -22,27 +44,46 @@ const Compare = ({ products }) => {
     }
   }, [a, b]);
 
+  // --- FORMAT LABELS (Main Camera → Main Camera) --- //
+  const formatLabel = (key) =>
+    key
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (s) => s.toUpperCase());
+
   return (
     <div>
       <h2 style={{ marginBottom: 20 }}>Compare Products</h2>
 
       {/* Product A */}
-      <select
-        style={{ padding: 12, marginRight: 10, marginTop: 10 }}
-        onChange={(e) => {
-          const selected = products.find(
-            (p) => p.productName === e.target.value
-          );
-          setA(selected || null);
-        }}
-      >
-        <option value="">-- Product A --</option>
-        {products.map((p) => (
-          <option key={p._id} value={p.productName}>
-            {p.productName}
-          </option>
-        ))}
-      </select>
+<select
+  style={{ padding: 12, marginRight: 10, marginTop: 10 }}
+  onChange={(e) => {
+    const selected = products.find(
+      (p) => p.productName === e.target.value
+    );
+    setA(selected || null);
+    setB(null); // reset B when A changes
+  }}
+>
+  <option value="">-- Product A --</option>
+
+  {products
+    .filter((p) => {
+      if (!p.productName) return false;
+
+      const name = p.productName.toLowerCase();
+      return (
+        name.includes("redmi") ||
+        name.includes("xiaomi") ||
+        name.includes("mi")
+      );
+    })
+    .map((p) => (
+      <option key={p._id} value={p.productName}>
+        {p.productName}
+      </option>
+    ))}
+</select>
 
       {/* Product B */}
       <select
@@ -55,11 +96,24 @@ const Compare = ({ products }) => {
         }}
       >
         <option value="">-- Product B --</option>
-        {products.map((p) => (
-          <option key={p._id} value={p.productName}>
-            {p.productName}
-          </option>
-        ))}
+
+        {/* Price-based filtering */}
+        {productA &&
+          products
+            .filter((p) => {
+              if (!p.productName) return false;
+              if (p.productName.toLowerCase().includes("redmi")) return false;
+
+              const priceA = getHighestPrice(productA.price);
+              const priceB = getLowestPrice(p.price);
+
+              return Math.abs(priceA - priceB) <= 1000;
+            })
+            .map((p) => (
+              <option key={p._id} value={p.productName}>
+                {p.productName}
+              </option>
+            ))}
       </select>
 
       {/* Comparison Table */}
@@ -84,10 +138,10 @@ const Compare = ({ products }) => {
           </thead>
           <tbody>
             {features
-              .filter((f) => f !== "productName") // ⬅ remove productName from features
+              .filter((f) => f !== "productName")
               .map((f) => (
                 <tr key={f}>
-                  <td>{f}</td>
+                  <td>{formatLabel(f)}</td>
                   <td>{a[f] || "N/A"}</td>
                   <td>{b[f] || "N/A"}</td>
                 </tr>
