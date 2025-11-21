@@ -1,16 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 // --- PRICE HELPERS --- //
-const getHighestPrice = (price) => {
-  if (!price) return 0;
-
-  return price
-    .split(",")
-    .map((p) => parseInt(p.trim()))
-    .filter((n) => !isNaN(n))
-    .sort((a, b) => b - a)[0]; // highest
-};
-
 const getLowestPrice = (price) => {
   if (!price) return 0;
 
@@ -44,7 +34,7 @@ const Compare = ({ products }) => {
     }
   }, [a, b]);
 
-  // --- FORMAT LABELS (Main Camera → Main Camera) --- //
+  // --- FORMAT LABELS --- //
   const formatLabel = (key) =>
     key
       .replace(/([A-Z])/g, " $1")
@@ -55,35 +45,35 @@ const Compare = ({ products }) => {
       <h2 style={{ marginBottom: 20 }}>Compare Products</h2>
 
       {/* Product A */}
-<select
-  style={{ padding: 12, marginRight: 10, marginTop: 10 }}
-  onChange={(e) => {
-    const selected = products.find(
-      (p) => p.productName === e.target.value
-    );
-    setA(selected || null);
-    setB(null); // reset B when A changes
-  }}
->
-  <option value="">-- Product A --</option>
+      <select
+        style={{ padding: 12, marginRight: 10, marginTop: 10 }}
+        onChange={(e) => {
+          const selected = products.find(
+            (p) => p.productName === e.target.value
+          );
+          setA(selected || null);
+          setB(null); // reset B when A changes
+        }}
+      >
+        <option value="">-- Product A --</option>
 
-  {products
-    .filter((p) => {
-      if (!p.productName) return false;
+        {products
+          .filter((p) => {
+            if (!p.productName) return false;
 
-      const name = p.productName.toLowerCase();
-      return (
-        name.includes("redmi") ||
-        name.includes("xiaomi") ||
-        name.includes("mi")
-      );
-    })
-    .map((p) => (
-      <option key={p._id} value={p.productName}>
-        {p.productName}
-      </option>
-    ))}
-</select>
+            const name = p.productName.toLowerCase();
+            return (
+              name.includes("redmi") ||
+              name.includes("xiaomi") ||
+              name.includes("mi")
+            );
+          })
+          .map((p) => (
+            <option key={p._id} value={p.productName}>
+              {p.productName}
+            </option>
+          ))}
+      </select>
 
       {/* Product B */}
       <select
@@ -97,17 +87,26 @@ const Compare = ({ products }) => {
       >
         <option value="">-- Product B --</option>
 
-        {/* Price-based filtering */}
         {productA &&
           products
             .filter((p) => {
               if (!p.productName) return false;
-              if (p.productName.toLowerCase().includes("redmi")) return false;
 
-              const priceA = getHighestPrice(productA.price);
+              const name = p.productName.toLowerCase();
+
+              // Exclude Redmi/Xiaomi/Mi from B
+              if (
+                name.includes("redmi") ||
+                name.includes("xiaomi") ||
+                name.includes("mi")
+              )
+                return false;
+
+              // --- PRICE FILTER (±2000 difference) ---
+              const priceA = getLowestPrice(productA.price);
               const priceB = getLowestPrice(p.price);
 
-              return Math.abs(priceA - priceB) <= 1000;
+              return Math.abs(priceA - priceB) <= 2000;
             })
             .map((p) => (
               <option key={p._id} value={p.productName}>
@@ -126,7 +125,6 @@ const Compare = ({ products }) => {
             borderCollapse: "collapse",
             marginTop: 20,
             textAlign: "center",
-            textWrap: "wrap",
           }}
         >
           <thead>
