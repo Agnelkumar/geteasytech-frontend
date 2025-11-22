@@ -46,7 +46,7 @@ const UserPortal = () => {
           <button
             onClick={() => {
               localStorage.removeItem('username');
-              window.location.href = '/';
+              window.location.href = '/user';
             }}
             style={{
               marginLeft: 20,
