@@ -4,14 +4,7 @@ import axios from 'axios';
 
 const UserPortal = () => {
   const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const role = localStorage.getItem("role");
-  
-    if (!token || role !== "user") {
-      window.location.href = "/";
-    }
-  }, []);  
+
 
     // LIST
     const fetchProducts = async () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { modalStyle, modalContentStyle, inputStyle, buttonStyle } from '../styles/modalStyles';
 
@@ -8,14 +8,6 @@ const Landing = () => {
   const [form, setForm] = useState({ username: '', email: '', password: '', mobileNumber: ''});
   const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const role = localStorage.getItem("role");
-  
-    if (token && role === "admin") navigate("/admin");
-    if (token && role === "user") navigate("/user");
-    if (token && role !== "user" && "admin") navigate("/");
-  }, []); 
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
 
