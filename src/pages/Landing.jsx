@@ -14,7 +14,8 @@ const Landing = () => {
   
     if (token && role === "admin") navigate("/admin");
     if (token && role === "user") navigate("/user");
-  }, []);  
+    if (token && role !== "user" && "admin") navigate("/");
+  }, []); 
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
 
