@@ -8,6 +8,13 @@ const Landing = () => {
   const [form, setForm] = useState({ username: '', email: '', password: '', mobileNumber: ''});
   const [isRegister, setIsRegister] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+  
+    if (token && role === "admin") navigate("/admin");
+    if (token && role === "user") navigate("/user");
+  }, []);  
 
   const users = JSON.parse(localStorage.getItem('users') || '[]');
 

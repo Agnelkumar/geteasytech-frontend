@@ -8,6 +8,14 @@ const AdminPortal = () => {
   const [form, setForm] = useState({});
   const [products, setProducts] = useState([]);
   const [editingProductId, setEditingProductId] = useState(null);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+  
+    if (!token || role !== "admin") {
+      window.location.href = "/";
+    }
+  }, []);  
 
   // Fetch Product List
   const fetchProducts = async () => {
