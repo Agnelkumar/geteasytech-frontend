@@ -135,7 +135,7 @@ const AdminPortal = () => {
           <button
             onClick={() => {
               localStorage.removeItem("username");
-              window.location.href = "/admin";
+              window.location.href = "/";
             }}
             style={{
               marginLeft: 20,
