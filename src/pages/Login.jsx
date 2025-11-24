@@ -27,7 +27,7 @@ const Login = () => {
           {error && <p className="error">{error}</p>}
           <button type="submit">Login</button>
         </form>
-        <p style={{ marginTop: 10 }}>Don't have an account? <a href="/register">Register</a></p>
+        <p style={{ marginTop: 10 }}>Don't have an account? <a href="/register">Register here</a></p>
       </div>
     </div>
   );

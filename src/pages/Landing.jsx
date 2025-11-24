@@ -63,10 +63,10 @@ const Landing = () => {
   return (
     <>
       <header className="header">
-        <div style={{ fontWeight: "bold", fontSize: 20 }}>GetEasyTech</div>
+        <div style={{ fontFamily: 'Times New Roman', fontWeight: "bold", fontSize: '2rem' }}>GetEasyTech</div>
         <div>
           <a
-            style={{ color: "#fff", cursor: "pointer" }}
+            style={{ color: "#fff", cursor: "pointer", fontSize: '1.2rem', display: 'flex', justifyContent: 'space-between' }}
             onClick={() => setShowModal(true)}
           >
             Login
@@ -74,11 +74,9 @@ const Landing = () => {
         </div>
       </header>
 
-      <div className="container">
-        <div className="card">
+      <div className="container" style={{ fontFamily: 'Times New Roman', padding: '2rem', textAlign: 'center' }}>
           <h1>Welcome to GetEasyTech</h1>
           <p>Your one-stop hub for all things tech — simple, fast, and easy.</p>
-        </div>
       </div>
 
       {/* ==================================================== */}
