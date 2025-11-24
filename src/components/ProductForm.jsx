@@ -1,5 +1,5 @@
 import React from "react";
-import { inputStyle, buttonStyle, btnStyle } from "../styles/modalStyles";
+import { inputStyle, buttonStyle, btnStyle, productStyle } from "../styles/modalStyles";
 
 const fields = [
   "Product Name","Main Camera","Secondary Camera","Front Camera",
@@ -9,19 +9,21 @@ const fields = [
 const ProductForm = ({ form, setForm, onSubmit, onCancel, editing }) => {
   return (
     <div>
+      <div>
       {fields.map(f => (
-        <input
+        <input 
           key={f}
           placeholder={f}
-          style={inputStyle}
+          style={productStyle}
           value={form[f] || ""}
           onChange={(e) => setForm({ ...form, [f]: e.target.value })}
         />
       ))}
+      </div>
 
-      <div style={{ display: "flex", gap: 10, marginLeft: 180 }}>
-        <button style={buttonStyle} onClick={onSubmit}>{editing ? "Update Product" : "Submit Product"}</button>
-        {editing && <button style={btnStyle} onClick={onCancel}>Cancel</button>}
+      <div style={{ display: "flex", gap: 10, marginLeft: "30%" }}>
+        <button style={buttonStyle} onClick={onSubmit}>{editing ? "Update Product" : "Submit Product"}</button></div>
+        <div style={{display: "flex", margin: "5px 36%", padding: "5px"}}>{editing && <button style={btnStyle} onClick={onCancel}>Cancel</button>}
       </div>
     </div>
   );

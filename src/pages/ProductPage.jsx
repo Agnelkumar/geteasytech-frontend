@@ -99,7 +99,7 @@ const ProductPage = () => {
 
   return (
     <div>
-      <h1>Product Management</h1>
+      <h1 style={{margin: "20px 5%", fontSize: "1.5rem", fontFamily: "Times New Roman"}}>Add Product</h1>
 
       <ProductForm 
         form={form} 

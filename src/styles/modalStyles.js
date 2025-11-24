@@ -1,30 +1,46 @@
 export const inputStyle = {
   display: "block",
-  width: 360,
-  padding: "10px 12px",
-  margin: "8px 0",
-  borderRadius: 6,
-  border: "1px solid #ddd",
-  fontSize: 16
+  width: '70%',
+  padding: "10px",
+  margin: "20px 13%",
+  borderRadius: 4,
+  border: "0.1px solid #060606",
+  fontSize: 13,
+  
+};
+
+export const productStyle = {
+  display: "block",
+  width: '70%',
+  padding: "10px",
+  margin: "20px 5%",
+  borderRadius: 4,
+  border: "0.1px solid #060606",
+  fontSize: 13,
+  
 };
 
 export const buttonStyle = {
-  padding: "10px 16px",
-  background: "#1e88e5",
-  color: "#fff",
+  padding: "12px",
+  width: '20%',
+  margin: "10px 5%",
+  background: "rgb(10, 136, 229)",
+  color: "rgb(255, 255, 255)",
   border: "none",
-  borderRadius: 6,
+  borderRadius: "4px",
   cursor: "pointer",
   fontWeight: "bold"
 };
 
 export const btnStyle = {
-  padding: "8px 12px",
+  padding: "10px",
   background: "#aaa",
   color: "#fff",
   border: "none",
-  borderRadius: 6,
-  cursor: "pointer"
+  borderRadius: "4px",
+  cursor: "pointer",
+  width: "25%",
+  margin: 5,
 };
 
 /* ✅ Missing styles added below */
@@ -42,9 +58,8 @@ export const modalStyle = {
 };
 
 export const modalContentStyle = {
-  background: "#fff",
-  padding: 24,
-  width: 420,
-  borderRadius: 12,
-  boxShadow: "0 4px 20px rgba(0,0,0,0.2)"
+  background: "rgb(255, 255, 255)",
+  width: 400,
+  borderRadius: 8,
+  boxShadow: "0 10px 25px rgba(0,0,0,0.3)"
 };

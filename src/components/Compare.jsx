@@ -31,7 +31,7 @@ const Compare = ({ products }) => {
 
   return (
     <div>
-      <h2 style={{ marginBottom: 20 }}>Compare Products</h2>
+      <h2 style={{ marginBottom: 20, fontFamily: "Times New Roman" }}>Comparison</h2>
 
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         <select
@@ -42,7 +42,7 @@ const Compare = ({ products }) => {
             setB(null);
           }}
         >
-          <option value="">-- Product A (Redmi/Xiaomi/Mi) --</option>
+          <option value="">-- Product A --</option>
           {products.filter(p => p.productName && /redmi|xiaomi|\bmi\b/i.test(p.productName)).map(p => (
             <option key={p._id} value={p.productName}>{p.productName}</option>
           ))}
@@ -55,7 +55,7 @@ const Compare = ({ products }) => {
             setB(sel || null);
           }}
         >
-          <option value="">-- Product B (related price) --</option>
+          <option value="">-- Product B --</option>
           {a && products.filter(p => {
             if (!p.productName) return false;
             const name = p.productName.toLowerCase();
@@ -72,14 +72,14 @@ const Compare = ({ products }) => {
       {a && b && features.length > 0 && (
         <table border="1" cellPadding="10" style={{ width: "100%", borderCollapse: "collapse", marginTop: 20, textAlign: "center" }}>
           <thead>
-            <tr><th>Feature</th><th>{a.productName}</th><th>{b.productName}</th></tr>
+            <tr><th style={{fontFamily: "Times New Roman", fontSize: "1.3rem"}}>Feature</th><th style={{fontFamily: "Times New Roman", fontSize: "1.2rem"}}>{a.productName}</th><th style={{fontFamily: "Times New Roman", fontSize: "1.2rem"}}>{b.productName}</th></tr>
           </thead>
           <tbody>
             {features.filter(f => f !== "productName").map(f => (
               <tr key={f}>
-                <td>{formatLabel(f)}</td>
-                <td>{a[f] || "N/A"}</td>
-                <td>{b[f] || "N/A"}</td>
+                <td style={{fontFamily: "Times New Roman", fontSize: "1.1rem"}}>{formatLabel(f)}</td>
+                <td style={{fontFamily: "Times New Roman", fontSize: "1.1rem"}}>{a[f] || "N/A"}</td>
+                <td style={{fontFamily: "Times New Roman", fontSize: "1.1rem"}}>{b[f] || "N/A"}</td>
               </tr>
             ))}
           </tbody>

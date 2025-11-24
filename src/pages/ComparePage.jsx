@@ -9,7 +9,6 @@ const ComparePage = () => {
   }, []);
   return (
     <div>
-      <h1>Compare</h1>
       <Compare products={products} />
     </div>
   );

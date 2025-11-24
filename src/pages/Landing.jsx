@@ -85,7 +85,8 @@ const Landing = () => {
       {showModal && (
         <div style={modalStyle}>
           <div style={modalContentStyle}>
-            <button
+          <div style={{ textAlign: 'right', cursor: 'pointer', background: '#1e88e5', overflow: "hidden", WebkitBorderTopRightRadius: '8px', WebkitBorderTopLeftRadius: '8px' }} onClick={() => setShowModal(false)}>&times;</div>
+          {/*  <button
               onClick={() => {
                 setShowModal(false);
                 setIsRegister(false);
@@ -94,42 +95,26 @@ const Landing = () => {
               style={{ float: "right" }}
             >
               ×
-            </button>
+            </button> */}
 
-            <h3>{isRegister ? "Register" : "Quick Login"}</h3>
+          { /* {isRegister ? "Register" : "Quick Login"
 
             {/* ------------------- ROLE TABS ------------------- */}
-            <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
-              <div
-                onClick={() => setTab("admin")}
-                style={{
-                  padding: 8,
-                  background: tab === "admin" ? "#ddd" : "#f3f3f3",
-                  cursor: "pointer",
-                  borderRadius: 6,
-                }}
-              >
+            <div style={{ display: "flex" }}>
+              <div onClick={() => setTab("admin")} style={{ flex: 1, textAlign: 'center', padding: 10, background: tab === 'admin' ? 'rgba(0, 0, 0, 0.3)' : '#f0f0f0', cursor: 'pointer', fontFamily: 'Times New Roman' }} >
                 Admin
               </div>
-              <div
-                onClick={() => setTab("user")}
-                style={{
-                  padding: 8,
-                  background: tab === "user" ? "#ddd" : "#f3f3f3",
-                  cursor: "pointer",
-                  borderRadius: 6,
-                }}
-              >
+              <div onClick={() => setTab("user")} style={{ flex: 1, textAlign: 'center', padding: 10, background: tab === 'user' ? 'rgba(0,0,0,0.3)' : '#f0f0f0', cursor: 'pointer', fontFamily: 'Times New Roman' }} >
                 User
               </div>
             </div>
 
             {/* ------------------- FORM ------------------------- */}
-            <div style={{ marginTop: 12 }}>
+            <div style={{ marginTop: 30, boxSizing: "border-box" }}>
               {/* Username / Email */}
               <input
                 style={inputStyle}
-                placeholder={ "Username"}
+                placeholder={ "👤 Username"}
                 value={form.username}
                 onChange={(e) =>
                   setForm({ ...form, username: e.target.value })
@@ -141,7 +126,7 @@ const Landing = () => {
                 <input
                   style={inputStyle}
                   type="email"
-                  placeholder="Email"
+                  placeholder="📧 Email"
                   value={form.email}
                   onChange={(e) =>
                     setForm({ ...form, email: e.target.value })
@@ -155,7 +140,7 @@ const Landing = () => {
               <input
                 style={inputStyle}
                 type="text"
-                placeholder="Mobile Number"
+                placeholder="📱 Mobile Number"
                 value={form.mobileNumber}
                 onChange={(e) =>
                   setForm({ ...form, mobileNumber: e.target.value })
@@ -167,7 +152,7 @@ const Landing = () => {
               <input
                 style={inputStyle}
                 type="password"
-                placeholder="Password"
+                placeholder="🔒 Password"
                 value={form.password}
                 onChange={(e) =>
                   setForm({ ...form, password: e.target.value })
@@ -180,7 +165,7 @@ const Landing = () => {
               )}
 
               {/* BUTTONS */}
-              <div style={{ marginTop: 10 }}>
+              <div style={{ marginTop: 20, marginLeft: 140, width: "90%" }}>
                 {!isRegister ? (
                   <button style={buttonStyle} onClick={handleLogin}>
                     Login
@@ -193,19 +178,13 @@ const Landing = () => {
               </div>
 
               {/* SWITCH LOGIN/REGISTER */}
-              <p style={{ marginTop: 12 }}>
+              <p style={{ marginTop: 12, marginLeft: 145, marginBottom: 40 }}>
                 {!isRegister ? (
-                  <a
-                    onClick={() => setIsRegister(true)}
-                    style={{ color: "#1e88e5", cursor: "pointer" }}
-                  >
-                    Register
+                  <a onClick={() => setIsRegister(true)} style={{ color: "#1e88e5", cursor: "pointer" }} >
+                    Register here
                   </a>
                 ) : (
-                  <a
-                    onClick={() => setIsRegister(false)}
-                    style={{ color: "#1e88e5", cursor: "pointer" }}
-                  >
+                  <a onClick={() => setIsRegister(false)} style={{ color: "#1e88e5", cursor: "pointer" }} >
                     Back to Login
                   </a>
                 )}

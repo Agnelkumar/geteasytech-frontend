@@ -26,13 +26,17 @@ const handleLogout = () => {
   return (
     <div>
     <header className="header">
-        <div style={{ fontWeight: "bold", fontSize: 20 }}>GetEasyTech</div>
-        <div className={"pull-right"} style={{ padding: "10px 14px", color: "#fff", fontSize: 20 }}>
+        <div style={{ fontFamily: 'Times New Roman', fontWeight: "bold", fontSize: '2rem' }}>GetEasyTech</div>
+        <div style={{ fontFamily: 'Times New Roman', display: "flex", fontSize: "1.2rem", padding: "10px 10px", fontWeight: "normal", gap: "20px" }}>
           {username ? `${username}` : ""}
-        </div>
-        <div>
+        
         <a
-            style={{ color: "#fff", cursor: "pointer" }}
+            style={{ backgroundColor: "#1864c4",
+              border: "none",
+              borderRadius: "4px",
+              fontSize: "1rem",
+              cursor: "pointer",
+              fontWeight: "bold", padding: "3px" }}
             onClick={handleLogout}
           >
             Logout
