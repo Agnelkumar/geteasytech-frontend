@@ -120,7 +120,7 @@ const AdminPortal = () => {
           fontWeight: "bold",
         }}
       >
-        <div>GetEasyTech</div>
+        <div style={{ fontFamily: 'Times New Roman', fontWeight: "bold", fontSize: '2rem' }}>GetEasyTech</div>
 
         <div
           style={{
