@@ -1,30 +1,24 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Layout from "./components/Layout";
 import ProductPage from "./pages/ProductPage";
 import ComparePage from "./pages/ComparePage";
-import NotFound from "./pages/NotFound";
-import Layout from "./components/Layout";
+import MasterAdminPage from "./pages/MasterAdminPage";
+import StateAdminPage from "./pages/StateAdminPage";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          {/* Pages with global sidebar (Layout) */}
-          <Route path="/product" element={<ProductPage />} />
-          <Route path="/compare" element={<ComparePage />} />
-        </Route>
-
-        {/* Public / auth */}
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
 
-        <Route path="*" element={<NotFound />} />
+        <Route element={<Layout />}>
+          <Route path="/products" element={<ProductPage />} />
+          <Route path="/compare" element={<ComparePage />} />
+          <Route path="/create-state-admin" element={<MasterAdminPage />} />
+          <Route path="/state-users" element={<StateAdminPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

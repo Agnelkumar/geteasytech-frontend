@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import api from "../services/api";
 import Compare from "../components/Compare";
+import { getProducts } from "../services/api";
 
 const ComparePage = () => {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
-    api.get("/products").then(res => setProducts(res.data)).catch(err => { console.error(err); alert("Failed to load"); });
+    getProducts().then(res => setProducts(res.data || [])).catch(err => console.error(err));
   }, []);
+
   return (
     <div>
       <Compare products={products} />
