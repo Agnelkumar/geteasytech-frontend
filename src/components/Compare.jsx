@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const getLowestPrice = (price) => {
   if (!price) return 0;
@@ -9,10 +9,12 @@ const getLowestPrice = (price) => {
     .sort((a, b) => a - b)[0] || 0;
 };
 
-const Compare = ({ products }) => {
+const Compare = ({ products = [] }) => {
   const [a, setA] = useState(null);
   const [b, setB] = useState(null);
   const [features, setFeatures] = useState([]);
+
+  const productA =a;
 
   useEffect(() => {
     if (a && b) {
@@ -21,9 +23,7 @@ const Compare = ({ products }) => {
       const allKeys = Array.from(new Set([...keysA, ...keysB]));
       const cleanKeys = allKeys.filter((k) => !["_id", "__v", "createdAt", "updatedAt"].includes(k));
       setFeatures(cleanKeys);
-    } else {
-      setFeatures([]);
-    }
+    } 
   }, [a, b]);
 
   const formatLabel = (key) =>
@@ -33,7 +33,7 @@ const Compare = ({ products }) => {
     <div>
       <h2 style={{ marginBottom: 20, fontFamily: "Times New Roman" }}>Comparison</h2>
 
-      <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+      <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 12 }}>
         <select
           style={{ padding: 12 }}
           onChange={(e) => {
@@ -43,7 +43,16 @@ const Compare = ({ products }) => {
           }}
         >
           <option value="">-- Product A --</option>
-          {products.filter(p => p.productName && /redmi|xiaomi|\bmi\b/i.test(p.productName)).map(p => (
+          {products.filter((p) => {
+            if (!p.productName) return false;
+
+            const name = p.productName.toLowerCase();
+            return (
+              name.includes("redmi") ||
+              name.includes("xiaomi") ||
+              name.includes("mi")
+            );
+          }).map(p => (
             <option key={p._id} value={p.productName}>{p.productName}</option>
           ))}
         </select>
@@ -54,16 +63,28 @@ const Compare = ({ products }) => {
             const sel = products.find((p) => p.productName === e.target.value);
             setB(sel || null);
           }}
+          
         >
           <option value="">-- Product B --</option>
-          {a && products.filter(p => {
-            if (!p.productName) return false;
-            const name = p.productName.toLowerCase();
-            if (/redmi|xiaomi|\bmi\b/.test(name)) return false;
-            const priceA = getLowestPrice(a.price || "");
-            const priceB = getLowestPrice(p.price || "");
-            return Math.abs(priceA - priceB) <= 2000;
-          }).map(p => (
+          {productA && products.filter((p) => {
+              if (!p.productName) return false;
+
+              const name = p.productName.toLowerCase();
+
+              // Exclude Redmi/Xiaomi/Mi from B
+              if (
+                name.includes("redmi") ||
+                name.includes("xiaomi") ||
+                name.includes("mi")
+              )
+                return false;
+
+              // --- PRICE FILTER (±2000 difference) ---
+              const priceA = getLowestPrice(productA.price);
+              const priceB = getLowestPrice(p.price);
+
+              return Math.abs(priceA - priceB) <= 2000;
+            }).map(p => (
             <option key={p._id} value={p.productName}>{p.productName}</option>
           ))}
         </select>
@@ -72,7 +93,11 @@ const Compare = ({ products }) => {
       {a && b && features.length > 0 && (
         <table border="1" cellPadding="10" style={{ width: "100%", borderCollapse: "collapse", marginTop: 20, textAlign: "center" }}>
           <thead>
-            <tr><th style={{fontFamily: "Times New Roman", fontSize: "1.3rem"}}>Feature</th><th style={{fontFamily: "Times New Roman", fontSize: "1.2rem"}}>{a.productName}</th><th style={{fontFamily: "Times New Roman", fontSize: "1.2rem"}}>{b.productName}</th></tr>
+            <tr>
+              <th style={{fontFamily: "Times New Roman", fontSize: "1.3rem"}}>Feature</th>
+              <th style={{fontFamily: "Times New Roman", fontSize: "1.2rem"}}>{a.productName}</th>
+              <th style={{fontFamily: "Times New Roman", fontSize: "1.2rem"}}>{b.productName}</th>
+            </tr>
           </thead>
           <tbody>
             {features.filter(f => f !== "productName").map(f => (
